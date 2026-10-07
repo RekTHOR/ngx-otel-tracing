@@ -1,0 +1,37 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "npm"
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "ngx-otel-tracing": {
+      "projectType": "library",
+      "root": "projects/ngx-otel-tracing",
+      "sourceRoot": "projects/ngx-otel-tracing/src",
+      "prefix": "otel",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-otel-tracing/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-otel-tracing/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/ngx-otel-tracing/tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js"
+          }
+        }
+      }
+    }
+  }
+}

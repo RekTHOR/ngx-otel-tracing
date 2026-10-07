@@ -1,0 +1,31 @@
+name: Publish
+
+# Publishes to npm when a version tag is pushed (e.g. v0.1.0). The tag must match the library version.
+on:
+  push:
+    tags: [ 'v*' ]
+
+permissions:
+  contents: read
+  id-token: write # npm provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run test:ci
+      - run: npm run build
+      - name: Check tag matches package version
+        run: |
+          VERSION=$(node -p "require('./projects/ngx-otel-tracing/package.json').version")
+          test "v$VERSION" = "${GITHUB_REF_NAME}" || { echo "Tag ${GITHUB_REF_NAME} does not match version v$VERSION"; exit 1; }
+      - run: npm publish dist/ngx-otel-tracing --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
