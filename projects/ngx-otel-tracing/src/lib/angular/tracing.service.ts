@@ -18,6 +18,7 @@ import {SessionAttributesProcessor, SessionRatioSampler, TraceSession} from '../
 import {ScrubbingSpanExporter, sanitizeErrorMessage, scrubUrl} from '../core/trace-privacy';
 import {NoiseFilteringSpanExporter} from '../core/trace-noise-filter';
 import {describeClickTarget} from '../core/trace-element';
+import {toUrlMatchers} from '../core/url-match';
 import {DEFAULT_FEATURES, TRACING_CONFIG, TracingFeatures} from './tracing-config';
 
 @Injectable({providedIn: 'root'})
@@ -126,7 +127,7 @@ export class TracingService {
   private registerInstrumentations(): void {
     const {config} = this;
     const readButtonText = config.privacy?.clickLabels === 'button-text';
-    const propagate = config.propagateTraceTo ?? [];
+    const propagate = toUrlMatchers(config.propagateTraceTo);
 
     registerInstrumentations({
       instrumentations: [

@@ -37,7 +37,10 @@ export interface TracingConfig {
   environment?: string;
   /** Share of sessions to record, 0 to 1. Defaults to 1. */
   sampleRate?: number;
-  /** URLs that receive the `traceparent` header (their CORS policy must allow it). Defaults to none. */
+  /**
+   * URLs that receive the `traceparent` header (their CORS policy must allow it). A string matches every URL
+   * that starts with it, a RegExp is tested as is. Same-origin requests always get the header. Defaults to none.
+   */
   propagateTraceTo?: (string | RegExp)[];
   /** Defaults to true. When false, nothing is started. */
   enabled?: boolean;

@@ -1,6 +1,6 @@
 {
   "name": "@rekthor/ngx-otel-tracing",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Browser tracing for Angular on OpenTelemetry: page load and navigation traces, router phases, session handling, web vitals and privacy-safe export.",
   "license": "MIT",
   "author": "RekTHOR (https://github.com/RekTHOR)",

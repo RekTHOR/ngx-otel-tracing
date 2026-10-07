@@ -64,7 +64,7 @@ export const appConfig: ApplicationConfig = {
 | `collectorUrl` | yes | | OTLP/HTTP traces endpoint |
 | `serviceVersion`, `environment` | no | | `service.version`, `deployment.environment.name` |
 | `sampleRate` | no | `1` | Share of **sessions** recorded (0 to 1) |
-| `propagateTraceTo` | no | `[]` | URLs (string or RegExp) that receive the `traceparent` header. Their CORS policy must allow it. |
+| `propagateTraceTo` | no | `[]` | URLs that receive the `traceparent` header: a string matches every URL starting with it, a RegExp is tested as is. Same-origin requests always get it. The CORS policy of cross-origin targets must allow `traceparent`. |
 | `enabled` | no | `true` | When `false`, nothing is started |
 | `headers` | no | | Extra OTLP headers. Visible in the browser: public ingest keys only. |
 | `features` | no | all `true` | `router`, `errors`, `webVitals`, `longTasks`, `interactions` |
